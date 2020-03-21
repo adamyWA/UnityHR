@@ -38,6 +38,10 @@ public class Schedule : MonoBehaviour {
             {
                 emp.Cover(shift);
                 OpenShifts.Remove(shift);
+                if(OpenShifts.Count == 0)
+                {
+                    HasOpenShifts = false;
+                }
                 ShiftCovered(emp, shift);
             }
         }
@@ -49,6 +53,7 @@ public class Schedule : MonoBehaviour {
             if (!OpenShifts.Contains(shift))
             {
                 OpenShifts.Add(shift);
+                HasOpenShifts = true;
                 ShiftOpened(shift);
             }
         }

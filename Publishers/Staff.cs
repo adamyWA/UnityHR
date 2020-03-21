@@ -13,7 +13,8 @@ public class Staff : MonoBehaviour {
     public List<Employee> Employees;
 
     public event Action<Employee> Hired;
-    public event Action<Employee> Fired;
+    public event Action<Employee, Schedule> Fired;
+    public event Action<Employee> EmployeeExited;
 
 	// Use this for initialization
 	void Start () {
@@ -41,7 +42,7 @@ public class Staff : MonoBehaviour {
             }
         }
     }
-    public void Fire(Employee emp)
+    public void Fire(Employee emp, Schedule sched)
     {
         if (Fired != null)
         {   
@@ -51,12 +52,25 @@ public class Staff : MonoBehaviour {
                 if (Employees.Count <= Max)
                     Full = false;
 
-                Fired(emp);
+                Fired(emp, sched);
             }
             
         }
     }
-	
+	public void EmployeeExit(Employee emp)
+    {
+        if (EmployeeExited != null)
+        {
+            if (Employees.Contains(emp))
+            {
+                Employees.Remove(emp);
+                if (Employees.Count <= Max)
+                    Full = false;
+
+                EmployeeExited(emp);
+            }
+        }
+    }
 	// Update is called once per frame
 	void Update () {
 		

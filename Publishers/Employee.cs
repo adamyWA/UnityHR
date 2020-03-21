@@ -49,6 +49,7 @@ public class Employee : MonoBehaviour {
         if (CalledOut != null)
             CalledOut(sched,shift);
     }
+
     public void Quit(Schedule sched, Staff staff)
     {
         if(Quitted !=null)

@@ -23,17 +23,23 @@ public class EmployeeListener : MonoBehaviour
     }
     void HandleOnQuitted(Schedule sched, Staff staff)
     {
-        if(staff.Employees.Contains(Employee))
-        {
-            staff.Employees.Remove(Employee);
-        }
+        staff.EmployeeExit(Employee);
         foreach(var shift in Employee.WorkShifts)
         {
             sched.OpenShift(shift);
+            if (!Employee.OpenShifts.Contains(shift))
+                Employee.OpenShifts.Add(shift);
+        }
+        foreach (var openShift in Employee.OpenShifts)
+        {
+            if (Employee.OpenShifts.Contains(openShift))
+                Employee.WorkShifts.Remove(openShift);
+
         }
         Employee.Employed = false;
         Employee.HasOpenShifts = true;
     }
+
     void HandleOnCalledOut(Schedule sched, OpenShift shift)
     {
         if(!Employee.OpenShifts.Contains(shift)) //make sure the employee is working this shift
