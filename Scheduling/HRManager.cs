@@ -14,10 +14,9 @@ namespace Assets.Scripts.Scheduling
         public StaffManager StaffManager;
         public Staff Staff;
         public Schedule Schedule;
-        private int TotalEmployeeCount;
+
         private void Start()
         {
-            TotalEmployeeCount = 0;
             Staff = gameObject.AddComponent<Staff>();
             EmployeeManagerPairs = new List<Dictionary<Employee, EmployeeManager>>();
             ScheduleManager = gameObject.AddComponent<ScheduleManager>();
@@ -53,6 +52,10 @@ namespace Assets.Scripts.Scheduling
             if(Input.GetKeyDown("3")) //add employee to schedule roster
             {
                 Schedule.AddToScheduleRoster(EmployeeManagerPairs[EmployeeManagerPairs.Count-1].Keys.Where(x => x.Parameters.Name == Convert.ToString(EmployeeManagerPairs.Count-1)).FirstOrDefault());
+            }
+            if(Input.GetKeyDown("4"))
+            {
+                Schedule.CoverShift(DayOfWeek.Monday, Shifts.Morning, EmployeeManagerPairs[EmployeeManagerPairs.Count - 1].Keys.Where(x => x.Parameters.Name == Convert.ToString(EmployeeManagerPairs.Count - 1)).FirstOrDefault());
             }
             
         }

@@ -15,11 +15,17 @@ namespace Assets.Scripts.Scheduling
         {
             Schedule = gameObject.GetComponent<Schedule>();
             Schedule.EmployeeWasAddedToScheduleRoster += HandleEmployeeWasAddedToScheduleRoster;
+            Schedule.ShiftWasCovered += HandleShiftWasCovered;
         }
         void HandleEmployeeWasAddedToScheduleRoster(Employee employee)
         {
             employee.AddToSchedule(Schedule);
             Debug.Log("Employee on Schedule Roster: " + employee.Parameters.Name);
+        }
+        void HandleShiftWasCovered(DayOfWeek day, Shifts shift, Employee employee)
+        {
+            employee.CoverShift(day, shift);
+            Debug.Log("#Day: " + day + "#Shift: " + shift + "#Employee: " + employee.Parameters.Name);
         }
     }
 }

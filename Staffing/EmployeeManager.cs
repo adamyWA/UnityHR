@@ -44,7 +44,7 @@ namespace Assets.Scripts.Staffing
         }
         public void HandleOnCoveredShift(DayOfWeek day, Shifts shift)
         {
-            //when cover shift is called, perhaps try to call Schedule.CoverShift
+            Debug.Log("Employee " + Employee.Parameters.Name + " covered " + shift + " on " + day);
         }
         public void HandleOnAbandonedShift(DayOfWeek day, Shifts shift)
         {

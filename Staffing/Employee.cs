@@ -5,26 +5,10 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
+
 namespace Assets.Scripts.Staffing
 {
-    public enum EmploymentStatus
-    {
-        Hired,
-        Fired,
-        Unemployed
-    }
-    public enum Shifts
-    {
-        Morning,
-        Evening,
-        Night
-    }
-    public enum JobTitle
-    {
-        MedicalTech,
-        Nurse,
-        Caregiver
-    }
+    
     public class EmployeeParameters
     {
         public string Name { get; set; }
@@ -35,15 +19,18 @@ namespace Assets.Scripts.Staffing
         public Dictionary<DayOfWeek, Shifts> CoveredShifts { get; set; }
 
     }
-    public class Employee : MonoBehaviour
+    public class Employee : MonoBehaviour, IPublisher
     {
         public Schedule Schedule;
+        public string Message { get; set; }
+        public bool Success { get; set; }
         public EmployeeParameters Parameters;
         #region constructors
         private void Start()
         {
             if(Parameters == null)
                 Parameters = new EmployeeParameters();
+            Parameters.CoveredShifts = new Dictionary<DayOfWeek, Shifts>();    
         }
 
         #endregion
@@ -118,13 +105,13 @@ namespace Assets.Scripts.Staffing
         {
             if (CoveredShift != null)
             {
-                if (!Parameters.CoveredShifts.ContainsKey(day))
+                if (!Parameters.CoveredShifts.ContainsKey(day) 
+                    && Parameters.EmploymentStatus == EmploymentStatus.Hired 
+                    && Parameters.ShiftAvailability.Contains(shift)
+                    && Parameters.OnSchedule)
                 {
-                    if (!Parameters.CoveredShifts[day].Equals(shift))
-                    {
-                        Parameters.CoveredShifts.Add(day, shift);
-                        CoveredShift(day, shift);
-                    }
+                    Parameters.CoveredShifts.Add(day, shift);
+                    CoveredShift(day, shift);
                 }
             }
         }
@@ -141,6 +128,10 @@ namespace Assets.Scripts.Staffing
                     }
                 }
             }
+        }
+        public void NotifySubscribers()
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }
