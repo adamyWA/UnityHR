@@ -21,12 +21,18 @@ public class Schedule : MonoBehaviour {
         Id = 1337;
         Name = "Default Schedule";
         OpenShifts = new List<OpenShift> {
-        new OpenShift { Day = DayOfWeek.Monday, Shift = Shift.Morning },
-        new OpenShift { Day = DayOfWeek.Monday, Shift = Shift.Evening },
-        new OpenShift { Day = DayOfWeek.Monday, Shift = Shift.Night },
-        new OpenShift { Day = DayOfWeek.Tuesday, Shift = Shift.Morning },
-        new OpenShift { Day = DayOfWeek.Tuesday, Shift = Shift.Evening },
-        new OpenShift { Day = DayOfWeek.Tuesday, Shift = Shift.Night },
+        new OpenShift { Day = DayOfWeek.Monday, Shift = Shift.Morning, RequiredTitle = Title.Manager },
+        new OpenShift { Day = DayOfWeek.Monday, Shift = Shift.Morning, RequiredTitle = Title.Cashier },
+        new OpenShift { Day = DayOfWeek.Monday, Shift = Shift.Morning, RequiredTitle = Title.Salesman },
+        new OpenShift { Day = DayOfWeek.Monday, Shift = Shift.Morning, RequiredTitle = Title.Salesman },
+        new OpenShift { Day = DayOfWeek.Monday, Shift = Shift.Evening, RequiredTitle = Title.Cashier },
+        new OpenShift { Day = DayOfWeek.Monday, Shift = Shift.Night, RequiredTitle = Title.Janitor },
+        new OpenShift { Day = DayOfWeek.Tuesday, Shift = Shift.Morning, RequiredTitle = Title.Manager },
+        new OpenShift { Day = DayOfWeek.Tuesday, Shift = Shift.Morning, RequiredTitle = Title.Cashier },
+        new OpenShift { Day = DayOfWeek.Tuesday, Shift = Shift.Morning, RequiredTitle = Title.Salesman },
+        new OpenShift { Day = DayOfWeek.Tuesday, Shift = Shift.Morning, RequiredTitle = Title.Salesman },
+        new OpenShift { Day = DayOfWeek.Tuesday, Shift = Shift.Evening, RequiredTitle = Title.Cashier },
+        new OpenShift { Day = DayOfWeek.Tuesday, Shift = Shift.Night, RequiredTitle = Title.Janitor },
         };
         #endregion
     }
@@ -34,11 +40,11 @@ public class Schedule : MonoBehaviour {
     {
         if (ShiftCovered != null)
         {
-            if (OpenShifts.Contains(shift) && emp.OpenShifts.Contains(shift)) //schedule has an openshift, employee doesnt
+            if (OpenShifts.Contains(shift) && emp.OpenShifts.Contains(shift)) //schedule has an openshift on this date, so does employee
             {
                 emp.Cover(shift);
                 OpenShifts.Remove(shift);
-                if(OpenShifts.Count == 0)
+                if (OpenShifts.Count == 0)
                 {
                     HasOpenShifts = false;
                 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Utility;
 using System;
+using Assets.Scripts.Utility;
+
 public class DemoObject : MonoBehaviour {
 
     public Staff Staff;
@@ -12,8 +14,9 @@ public class DemoObject : MonoBehaviour {
     public ScheduleListener ScheduleListener;
     public StaffListener StaffListener;
     public GameObject EmployeeManifestation;
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
         Staff = gameObject.AddComponent<Staff>();
         StaffListener = gameObject.AddComponent<StaffListener>();
         StaffListener.Staff = Staff;
@@ -21,15 +24,14 @@ public class DemoObject : MonoBehaviour {
         ScheduleListener = gameObject.AddComponent<ScheduleListener>();
         ScheduleListener.Schedule = Schedule;
         CreateAnEmployee();
-        Employee = EmployeeManifestation.GetComponent<Employee>();
-        EmployeeListener = EmployeeManifestation.GetComponent<EmployeeListener>();
-        EmployeeListener.Employee = Employee;
 	}
 	void CreateAnEmployee()
     {
         EmployeeManifestation = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        EmployeeManifestation.AddComponent<Employee>();
-        EmployeeManifestation.AddComponent<EmployeeListener>();
+        EmployeeListener = EmployeeManifestation.AddComponent<EmployeeListener>();
+        Employee = EmployeeManifestation.AddComponent<Employee>();
+        Employee.Randomize(Title.Janitor);
+        EmployeeListener.Employee = Employee;
     }
 	// Update is called once per frame
 	void Update () {
@@ -37,9 +39,20 @@ public class DemoObject : MonoBehaviour {
         {
             Staff.Hire(Employee);
         }
-        if(Input.GetKeyDown("2")) //have the employee cover a shift
+        if(Input.GetKeyDown("2")) //have the employee cover all open shifts that they are eligible to work
         {
-            Schedule.CoverShift(Employee, new OpenShift { Day = DayOfWeek.Monday, Shift = Shift.Morning });
+            var shiftsEmployeeCanCover = new List<OpenShift>();
+            foreach(var shift in Employee.OpenShifts)
+            {
+                shiftsEmployeeCanCover.Add(shift);
+            }
+            if (Employee.Employed)
+            {
+                foreach (var shift in shiftsEmployeeCanCover)
+                {
+                    Schedule.CoverShift(Employee, new OpenShift { Day = shift.Day, Shift = shift.Shift, RequiredTitle = shift.RequiredTitle });
+                }
+            }
         }
         if (Input.GetKeyDown("3")) //fire the employee
         {
@@ -54,12 +67,12 @@ public class DemoObject : MonoBehaviour {
             Debug.Log("Schedule currently has " + Schedule.OpenShifts.Count + " openings.");
             foreach(var shift in Schedule.OpenShifts)
             {
-                Debug.Log("Shift: " + shift.Day + shift.Shift + " is open on schedule");
+                Debug.Log(shift.RequiredTitle +  " shift " + shift.Day + shift.Shift + " is open on schedule");
             }
             Debug.Log("Employee is Employed: " + Employee.Employed);
             foreach (var shift in Employee.WorkShifts)
             {
-                Debug.Log("Employee: " + Employee.Name + " is covering " + shift.Day + " " + shift.Shift);
+                Debug.Log("Employee: " + Employee.Name + " is covering " + shift.Day + " " + shift.Shift + "as " + shift.RequiredTitle);
             }
             Debug.Log("Staff has " + Staff.Employees.Count + " employees currently.");
             foreach(var emp in Staff.Employees)

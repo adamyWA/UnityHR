@@ -11,15 +11,13 @@ public class EmployeeListener : MonoBehaviour
 
     private void Start()
     {
-        Employee = gameObject.GetComponent<Employee>(); //game may contain multiple employees, only get the employee attached to the same gameobject
-
         Employee.Quitted += HandleOnQuitted;
         Employee.CalledOut += HandleOnCalledOut;
         Employee.Covered += HandleOnCovered;
     }
     void HandleOnCovered(OpenShift shift)
     {
-        Debug.Log(Employee.Name + " covered " + shift.Day + " " + shift.Shift);
+        Debug.Log(Employee.Name + " covered " + shift.Day + " " + shift.Shift + " as a " + shift.RequiredTitle);
     }
     void HandleOnQuitted(Schedule sched, Staff staff)
     {

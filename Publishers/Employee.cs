@@ -9,8 +9,10 @@ public class Employee : MonoBehaviour {
     public bool Employed;
     public bool HasOpenShifts;
     public string Name { get; set; }
-    public int Id { get; set; }
+    public Gender Gender { get; set; }
+    public Guid Id { get; set; }
     public Title Title { get; set; }
+    public int MaxShifts { get; set; }
     public List<OpenShift> OpenShifts { get; set; }
     public List<OpenShift> WorkShifts { get; set; }
 
@@ -24,11 +26,8 @@ public class Employee : MonoBehaviour {
         #region Initialize
         Employed = false;
         HasOpenShifts = true;
-        OpenShifts = new List<OpenShift> { new OpenShift { Day = DayOfWeek.Monday, Shift = Shift.Morning } };
+        MaxShifts = 5;
         WorkShifts = new List<OpenShift>();
-        Name = "Default Employee";
-        Id = 1337;
-        Title = Title.Janitor;
         #endregion
     }
     public void Cover(OpenShift shift)
@@ -57,7 +56,40 @@ public class Employee : MonoBehaviour {
             Quitted(sched, staff);
         }
     }
-    // Update is called once per frame
+    public void Randomize(Title title)
+    {
+        var rand = new System.Random();
+        int numberOfOpenShifts = rand.Next(5, 10); //create a random number between 5 and 20. this decides how many openshifts to give the employee
+        Title = title;
+        Id = Guid.NewGuid();
+        Gender = (Gender)rand.Next(0, 1);
+        OpenShifts = new List<OpenShift>();
+
+        /*
+        var randomShift = new OpenShift { Day = (DayOfWeek)rand.Next(0, 6), Shift = (Shift)rand.Next(0, 2), RequiredTitle = Title };
+        if (!OpenShifts.Contains(randomShift))
+        {
+            OpenShifts.Add(randomShift);
+        }
+        */
+        for(var i=0;numberOfOpenShifts>=OpenShifts.Count;)
+        {
+            var randomShift = new OpenShift { Day = (DayOfWeek)rand.Next(0, 6), Shift = (Shift)rand.Next(0, 2), RequiredTitle = Title };
+            if (!OpenShifts.Contains(randomShift))
+            {
+                OpenShifts.Add(randomShift);
+                ++i;
+            }
+        }
+
+        
+        if (Gender == Gender.Male)
+            Name = RandomName.MaleName;
+        if (Gender == Gender.Female)
+            Name = RandomName.FemaleName;
+    }
+
+// Update is called once per frame
     void Update()
     {
 
