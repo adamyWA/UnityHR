@@ -20,6 +20,7 @@ public class Schedule : MonoBehaviour {
         HasOpenShifts = true;
         Id = 1337;
         Name = "Default Schedule";
+        #region Create a week of OpenShifts
         OpenShifts = new List<OpenShift> {
         new OpenShift { Day = DayOfWeek.Monday, Shift = Shift.Morning, RequiredTitle = Title.Manager },
         new OpenShift { Day = DayOfWeek.Monday, Shift = Shift.Morning, RequiredTitle = Title.Cashier },
@@ -33,7 +34,26 @@ public class Schedule : MonoBehaviour {
         new OpenShift { Day = DayOfWeek.Tuesday, Shift = Shift.Morning, RequiredTitle = Title.Salesman },
         new OpenShift { Day = DayOfWeek.Tuesday, Shift = Shift.Evening, RequiredTitle = Title.Cashier },
         new OpenShift { Day = DayOfWeek.Tuesday, Shift = Shift.Night, RequiredTitle = Title.Janitor },
+        new OpenShift { Day = DayOfWeek.Wednesday, Shift = Shift.Morning, RequiredTitle = Title.Manager },
+        new OpenShift { Day = DayOfWeek.Wednesday, Shift = Shift.Morning, RequiredTitle = Title.Cashier },
+        new OpenShift { Day = DayOfWeek.Wednesday, Shift = Shift.Morning, RequiredTitle = Title.Salesman },
+        new OpenShift { Day = DayOfWeek.Wednesday, Shift = Shift.Morning, RequiredTitle = Title.Salesman },
+        new OpenShift { Day = DayOfWeek.Wednesday, Shift = Shift.Evening, RequiredTitle = Title.Cashier },
+        new OpenShift { Day = DayOfWeek.Wednesday, Shift = Shift.Night, RequiredTitle = Title.Janitor },
+        new OpenShift { Day = DayOfWeek.Thursday, Shift = Shift.Morning, RequiredTitle = Title.Manager },
+        new OpenShift { Day = DayOfWeek.Thursday, Shift = Shift.Morning, RequiredTitle = Title.Cashier },
+        new OpenShift { Day = DayOfWeek.Thursday, Shift = Shift.Morning, RequiredTitle = Title.Salesman },
+        new OpenShift { Day = DayOfWeek.Thursday, Shift = Shift.Morning, RequiredTitle = Title.Salesman },
+        new OpenShift { Day = DayOfWeek.Thursday, Shift = Shift.Evening, RequiredTitle = Title.Cashier },
+        new OpenShift { Day = DayOfWeek.Thursday, Shift = Shift.Night, RequiredTitle = Title.Janitor },
+        new OpenShift { Day = DayOfWeek.Friday, Shift = Shift.Morning, RequiredTitle = Title.Manager },
+        new OpenShift { Day = DayOfWeek.Friday, Shift = Shift.Morning, RequiredTitle = Title.Cashier },
+        new OpenShift { Day = DayOfWeek.Friday, Shift = Shift.Morning, RequiredTitle = Title.Salesman },
+        new OpenShift { Day = DayOfWeek.Friday, Shift = Shift.Morning, RequiredTitle = Title.Salesman },
+        new OpenShift { Day = DayOfWeek.Friday, Shift = Shift.Evening, RequiredTitle = Title.Cashier },
+        new OpenShift { Day = DayOfWeek.Friday, Shift = Shift.Night, RequiredTitle = Title.Janitor },
         };
+        #endregion
         #endregion
     }
 	public void CoverShift(Employee emp, OpenShift shift)

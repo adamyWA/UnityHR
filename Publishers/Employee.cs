@@ -62,19 +62,12 @@ public class Employee : MonoBehaviour {
         int numberOfOpenShifts = rand.Next(5, 10); //create a random number between 5 and 20. this decides how many openshifts to give the employee
         Title = title;
         Id = Guid.NewGuid();
-        Gender = (Gender)rand.Next(0, 1);
+        Gender = (Gender)rand.Next(0, 2);
         OpenShifts = new List<OpenShift>();
 
-        /*
-        var randomShift = new OpenShift { Day = (DayOfWeek)rand.Next(0, 6), Shift = (Shift)rand.Next(0, 2), RequiredTitle = Title };
-        if (!OpenShifts.Contains(randomShift))
-        {
-            OpenShifts.Add(randomShift);
-        }
-        */
         for(var i=0;numberOfOpenShifts>=OpenShifts.Count;)
         {
-            var randomShift = new OpenShift { Day = (DayOfWeek)rand.Next(0, 6), Shift = (Shift)rand.Next(0, 2), RequiredTitle = Title };
+            var randomShift = new OpenShift { Day = (DayOfWeek)rand.Next(0, 8), Shift = (Shift)rand.Next(0, 3), RequiredTitle = Title };
             if (!OpenShifts.Contains(randomShift))
             {
                 OpenShifts.Add(randomShift);
