@@ -12,7 +12,7 @@ namespace Utility
     public enum Title
     {
         Manager,
-        Salesman,
+        Salesperson,
         Cashier,
         Janitor
     }

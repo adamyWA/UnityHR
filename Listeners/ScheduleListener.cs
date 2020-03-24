@@ -9,9 +9,6 @@ public class ScheduleListener : MonoBehaviour {
     public Staff Staff;
     // Use this for initialization
     void Start () {
-        Schedule = GetComponent<Schedule>();
-        Staff = GetComponent<Staff>();
-
         Schedule.ShiftCovered += HandleOnShiftCovered;
         Schedule.ShiftOpened += HandleOnShiftOpened;
     }

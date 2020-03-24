@@ -24,7 +24,6 @@ public class DemoObject : MonoBehaviour {
         StaffListener = gameObject.AddComponent<StaffListener>(); //Add a new StaffListener object to the scene. StaffListener is "initialized" with the values in StaffListener.cs "Start()" method.
         StaffListener.Staff = Staff; //Add a reference to the created Staff object to the StaffListener, so it can act on the same object when events are triggered.
         StaffMessage = GetComponentInChildren<Canvas>().GetComponentInChildren<Text>();
-        StaffListener.StaffMessage = StaffMessage;
         Schedule = gameObject.AddComponent<Schedule>(); //Add a Schedule object. Schedule is "initialized" with the values in Schedule.cs "Start()" method.
         ScheduleListener = gameObject.AddComponent<ScheduleListener>(); //Add a new ScheduleListener object to the scene. ScheduleListener is "initialized" with the values in ScheduleListener.cs "Start()" method.
         ScheduleListener.Schedule = Schedule; //Add a reference to the created Schedule object to the ScheduleListener, so it can act on the same object when events are triggered.

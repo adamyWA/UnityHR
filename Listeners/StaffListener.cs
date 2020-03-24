@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class StaffListener : MonoBehaviour {
 
     public Staff Staff;
-    public Text StaffMessage;
 	// Use this for initialization
 	void Start () {
         Staff.Hired += HandleOnHired;
@@ -17,7 +16,6 @@ public class StaffListener : MonoBehaviour {
     {
         emp.Employed = true;
         Debug.Log(emp.Name + " was Hired!");
-        StaffMessage.text = emp.Name + " was Hired!";
     }
     void HandleOnFired(Employee emp, Schedule sched)
     {

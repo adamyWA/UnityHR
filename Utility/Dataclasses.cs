@@ -47,7 +47,24 @@ namespace Utility
             "Mark",
             "Frank",
             "Tom",
-            "Hank"
+            "Hank",
+            "Doug",
+            "Donald",
+            "Rick",
+            "Adam",
+            "Greg",
+            "Brandon",
+            "Kevin",
+            "Wyatt",
+            "Isaac",
+            "Fikle",
+            "Garro",
+            "Robert",
+            "Edward",
+            "James",
+            "Rick",
+            "Morty",
+            "Jerry"
         };
         private List<string> LastNames = new List<string>()
         {
@@ -58,7 +75,22 @@ namespace Utility
             "Rose",
             "Finning",
             "Astronautica",
-            "Jebere"
+            "Jebere",
+            "Smith",
+            "Allan",
+            "Jackson",
+            "Parks",
+            "Young",
+            "McDonald",
+            "Belcher",
+            "McEntire",
+            "BligleBop",
+            "Frazier",
+            "Mejia",
+            "Hughes",
+            "FringleBum",
+            "Sanchez",
+            "Meseeks"
         };
         private List<string> FemaleFirstNames = new List<string>()
         {
@@ -72,7 +104,18 @@ namespace Utility
             "Sally",
             "Sky",
             "Winnie",
-            "Gretchen"
+            "Gretchen",
+            "Angelina",
+            "Deardra",
+            "Alice",
+            "Meli",
+            "Janisa",
+            "Yesha",
+            "Pony",
+            "Rosel",
+            "Kelly",
+            "Judy",
+            "Crystal"
         };
     }
 }

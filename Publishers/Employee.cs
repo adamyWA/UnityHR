@@ -67,7 +67,7 @@ public class Employee : MonoBehaviour {
 
         for(var i=0;numberOfOpenShifts>=OpenShifts.Count;)
         {
-            var randomShift = new OpenShift { Day = (DayOfWeek)random.Next(0, 8), Shift = (Shift)random.Next(0, 3), RequiredTitle = Title };
+            var randomShift = new OpenShift { Day = (DayOfWeek)random.Next(0, 7), Shift = (Shift)random.Next(0, 3), RequiredTitle = Title };
             if (!OpenShifts.Contains(randomShift))
             {
                 OpenShifts.Add(randomShift);
