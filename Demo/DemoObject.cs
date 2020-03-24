@@ -4,6 +4,7 @@ using UnityEngine;
 using Utility;
 using System;
 using Assets.Scripts.Utility;
+using UnityEngine.UI;
 
 public class DemoObject : MonoBehaviour {
 
@@ -14,23 +15,27 @@ public class DemoObject : MonoBehaviour {
     public ScheduleListener ScheduleListener;
     public StaffListener StaffListener;
     public GameObject EmployeeManifestation;
+    public Text StaffMessage;
 
     // This Object should be attached to a GameObject in a Unity scene. Unity will call the Start() method when the object is loaded into the Scene (on game start) 
-    void Start () {
+    void Start() {
+
         Staff = gameObject.AddComponent<Staff>(); //Add a new Staff object to the scene. Staff is "initialized" with the values in Staff.cs "Start()" method.
         StaffListener = gameObject.AddComponent<StaffListener>(); //Add a new StaffListener object to the scene. StaffListener is "initialized" with the values in StaffListener.cs "Start()" method.
         StaffListener.Staff = Staff; //Add a reference to the created Staff object to the StaffListener, so it can act on the same object when events are triggered.
+        StaffMessage = GetComponentInChildren<Canvas>().GetComponentInChildren<Text>();
+        StaffListener.StaffMessage = StaffMessage;
         Schedule = gameObject.AddComponent<Schedule>(); //Add a Schedule object. Schedule is "initialized" with the values in Schedule.cs "Start()" method.
         ScheduleListener = gameObject.AddComponent<ScheduleListener>(); //Add a new ScheduleListener object to the scene. ScheduleListener is "initialized" with the values in ScheduleListener.cs "Start()" method.
         ScheduleListener.Schedule = Schedule; //Add a reference to the created Schedule object to the ScheduleListener, so it can act on the same object when events are triggered.
         CreateAnEmployee(); //Employee creation is a bit different, since multiple employees may exist in a scene. Calls the CreateAnEmployee() method, below.
-	}
+    }
 	void CreateAnEmployee()
     {
         EmployeeManifestation = GameObject.CreatePrimitive(PrimitiveType.Cube); //adds a Cube object to the scene, which will act as an anchor for an Employee, and the EmployeeListener that will reference it
         EmployeeListener = EmployeeManifestation.AddComponent<EmployeeListener>(); //Add an EmployeeListener object to the cube we created. EmployeeListener is "initialized" with the values in EmployeeListener.cs "Start()" method.
         Employee = EmployeeManifestation.AddComponent<Employee>(); //Add an Employee object to the cube we created. Employee is "initialized" with the values in Employee.cs "Start()" method.
-        Employee.Randomize(Title.Janitor); //Randomize the Employee, using Randomize(Title) method in Employee.cs
+        Employee.Randomize(Title.Janitor, new System.Random()); //Randomize the Employee, using Randomize(Title) method in Employee.cs
         EmployeeListener.Employee = Employee; //Add a reference to the Randomized Employee to the EmployeeListener
     }
 	// Update is called once per frame
@@ -107,6 +112,5 @@ public class DemoObject : MonoBehaviour {
                 Debug.Log(Employee.Name + " is on staff.");
             }
         }
-
 	}
 }

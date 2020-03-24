@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Utility
 {
+    public class Notification
+    {
+        public bool Success = false;
+        public string Message = string.Empty;
+    }
     public class OpenShift
     {
         public DayOfWeek Day { get; set; }
@@ -22,56 +27,52 @@ namespace Utility
             }
         }
     }
-    public static class RandomName
+    public class RandomName
     {
-        private static List<string> MaleFirstNames = new List<string>()
+        public string Name { get; private set; }
+        private System.Random _random;
+        public RandomName(Gender gender, System.Random random)
+        {
+            _random = random;
+            if(gender == Gender.Male)
+            {
+                Name = MaleFirstNames[_random.Next(0, MaleFirstNames.Count)] + " " + LastNames[_random.Next(0, LastNames.Count)];
+            } else if(gender == Gender.Female)
+            {
+                Name = FemaleFirstNames[_random.Next(0, MaleFirstNames.Count)] + " " + LastNames[_random.Next(0, LastNames.Count)];
+            }
+        }
+        private List<string> MaleFirstNames = new List<string>()
         {
             "Mark",
             "Frank",
             "Tom",
             "Hank"
         };
-        private static List<string> MaleLastNames = new List<string>()
+        private List<string> LastNames = new List<string>()
         {
             "Hoppinburger",
             "Schlomalonga",
             "BingBong",
-            "Jebere"
-        };
-        private static List<string> FemaleFirstNames = new List<string>()
-        {
-            "Louise",
-            "Tina",
-            "Ava",
-            "Jennifer"
-        };
-        private static List<string> FemaleLastNames = new List<string>()
-        {
+            "Jebere",
             "Rose",
             "Finning",
             "Astronautica",
             "Jebere"
         };
-        public static string MaleName {
-            get {
-                string name = string.Empty;
-                var random = new System.Random();
-                name += MaleFirstNames[random.Next(0, MaleFirstNames.Count-1)];
-                name += " " + MaleLastNames[random.Next(0, MaleLastNames.Count - 1)];
-                return name;
-            }
-        }
-        public static string FemaleName
+        private List<string> FemaleFirstNames = new List<string>()
         {
-            get
-            {
-                string name = string.Empty;
-                var random = new System.Random();
-                name += FemaleFirstNames[random.Next(0, FemaleFirstNames.Count - 1)];
-                name += " " + FemaleLastNames[random.Next(0, FemaleLastNames.Count - 1)];
-                return name;
-            }
-        }
-
+            "Louise",
+            "Tina",
+            "Ava",
+            "Jennifer",
+            "Chloe",
+            "Marissa",
+            "Blinda",
+            "Sally",
+            "Sky",
+            "Winnie",
+            "Gretchen"
+        };
     }
 }

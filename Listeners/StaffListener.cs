@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StaffListener : MonoBehaviour {
 
     public Staff Staff;
+    public Text StaffMessage;
 	// Use this for initialization
 	void Start () {
-        Staff = GetComponent<Staff>();
         Staff.Hired += HandleOnHired;
         Staff.Fired += HandleOnFired;
         Staff.EmployeeExited += HandleOnEmployeeExited;
@@ -16,6 +17,7 @@ public class StaffListener : MonoBehaviour {
     {
         emp.Employed = true;
         Debug.Log(emp.Name + " was Hired!");
+        StaffMessage.text = emp.Name + " was Hired!";
     }
     void HandleOnFired(Employee emp, Schedule sched)
     {
