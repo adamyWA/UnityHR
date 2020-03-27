@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,12 +33,13 @@ public class Staff : MonoBehaviour {
     {
         if (Hired != null)
         {
-            if (!Employees.Contains(emp) && Employees.Count < Max)
+            var notDuplicateEmployee = !Employees.Exists(x => x.Id == emp.Id);
+            if (notDuplicateEmployee && Employees.Count < Max)
             {
                 Employees.Add(emp);
                 if(Employees.Count >= Max)
                     Full = true;
-
+                HasEmployees = true;
                 Hired(emp);
             }
         }
@@ -46,12 +48,13 @@ public class Staff : MonoBehaviour {
     {
         if (Fired != null)
         {   
-            if(Employees.Contains(emp))
+            if(Employees.Any(x=>x.Title == emp.Title))
             {
-                Employees.Remove(emp);
+                Employees.Remove(Employees.Where(x => x.Title == emp.Title).Where(y=>y.Gender == emp.Gender).FirstOrDefault());
                 if (Employees.Count <= Max)
                     Full = false;
-
+                if (Employees.Count == 0)
+                    HasEmployees = false;
                 Fired(emp, sched);
             }
             

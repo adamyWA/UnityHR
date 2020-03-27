@@ -9,6 +9,7 @@ namespace Utility
         public bool Success = false;
         public string Message = string.Empty;
     }
+    [Serializable]
     public class OpenShift
     {
         public DayOfWeek Day { get; set; }
@@ -118,4 +119,6 @@ namespace Utility
             "Crystal"
         };
     }
+
+
 }
