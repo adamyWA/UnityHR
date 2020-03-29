@@ -14,17 +14,22 @@ public class EmployeeListener : MonoBehaviour
         Employee.Quitted += HandleOnQuitted;
         Employee.CalledOut += HandleOnCalledOut;
         Employee.Covered += HandleOnCovered;
+        Employee.RemovedFromShift += HandleOnRemovedFromShift;
+    }
+    void HandleOnRemovedFromShift(OpenShift shift)
+    {
+        Debug.Log("FROM EMPLOYEELISTENER: " + Employee.Name + " was removed from " + shift.Day + " " + shift.Shift + " as a " + shift.RequiredTitle);
     }
     void HandleOnCovered(OpenShift shift)
     {
-        Debug.Log(Employee.Name + " covered " + shift.Day + " " + shift.Shift + " as a " + shift.RequiredTitle);
+        Debug.Log("FROM EMPLOYEELISTENER: " + Employee.Name + " covered " + shift.Day + " " + shift.Shift + " as a " + shift.RequiredTitle);
     }
     void HandleOnQuitted(Schedule sched, Staff staff)
     {
         staff.EmployeeExit(Employee);
         foreach(var shift in Employee.WorkShifts)
         {
-            sched.OpenShift(shift);
+            sched.OpenShift(Employee, shift);
             if (!Employee.OpenShifts.Contains(shift))
                 Employee.OpenShifts.Add(shift);
         }
@@ -43,7 +48,7 @@ public class EmployeeListener : MonoBehaviour
         if(!Employee.OpenShifts.Contains(shift)) //make sure the employee is working this shift
         {
             Employee.OpenShifts.Add(shift);
-            sched.OpenShift(shift);
+            sched.OpenShift(Employee, shift);
             Employee.HasOpenShifts = true;
         }
     }

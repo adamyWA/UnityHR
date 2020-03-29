@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Utility;
 
 public class StaffListener : MonoBehaviour {
 
@@ -19,18 +20,22 @@ public class StaffListener : MonoBehaviour {
     }
     void HandleOnFired(Employee emp, Schedule sched)
     {
+        List<OpenShift> shiftsToRemove = new List<OpenShift>();
         foreach(var shift in emp.WorkShifts)
         {
-            sched.OpenShift(shift);
+            shiftsToRemove.Add(shift);
             if (!emp.OpenShifts.Contains(shift))
                 emp.OpenShifts.Add(shift);
         }
         foreach(var openShift in emp.OpenShifts)
         {
-            if (emp.OpenShifts.Contains(openShift))
+            if (emp.WorkShifts.Contains(openShift))
                 emp.WorkShifts.Remove(openShift);
 
         }
+        foreach(var shift in shiftsToRemove)
+            sched.OpenShift(emp, shift);
+
         emp.Employed = false;
         emp.HasOpenShifts = true;
         Debug.Log(emp.Name + " was Fired!");

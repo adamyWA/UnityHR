@@ -19,6 +19,7 @@ public class Employee : MonoBehaviour
     public event Action<Schedule, OpenShift> CalledOut;
     public event Action<Schedule, Staff> Quitted; //lol
     public event Action<OpenShift> Covered;
+    public event Action<OpenShift> RemovedFromShift;
     public string JobDescription;
 
     // Use this for initialization
@@ -28,7 +29,6 @@ public class Employee : MonoBehaviour
         MaxShifts = 5;
         HasOpenShifts = true;
         WorkShifts = new List<OpenShift>();
-        OpenShifts = new List<OpenShift>();
         #endregion
     }
     public void Cover(OpenShift shift)
@@ -41,6 +41,19 @@ public class Employee : MonoBehaviour
                 if (!WorkShifts.Contains(shift))
                     WorkShifts.Add(shift);
                 Covered(shift);
+            }
+        }
+    }
+    public void RemoveFromShift(OpenShift shift)
+    {
+        if (RemovedFromShift != null)
+        {
+            if (WorkShifts.Contains(shift))
+            {
+                WorkShifts.Remove(shift);
+                if (!OpenShifts.Contains(shift))
+                    OpenShifts.Add(shift);
+                RemovedFromShift(shift);
             }
         }
     }

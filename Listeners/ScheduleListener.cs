@@ -14,11 +14,11 @@ public class ScheduleListener : MonoBehaviour {
     }
 	void HandleOnShiftCovered(Employee emp, OpenShift shift)
     {
-        Debug.Log("Scheduled shift for " + shift.RequiredTitle + " "+ shift.Day + " " + shift.Shift + " was covered by " + emp.Name + "!");
+        Debug.Log("FROM SCHEDULELISTENER: Scheduled shift for " + shift.RequiredTitle + " "+ shift.Day + " " + shift.Shift + " was covered by " + emp.Name + "!");
     }
-    void HandleOnShiftOpened(OpenShift shift)
+    void HandleOnShiftOpened(Employee emp, OpenShift shift)
     {
-        Debug.Log(shift.RequiredTitle + " " + shift.Shift + "shift on " + shift.Day + " was opened!");
+        Debug.Log(shift.RequiredTitle + " " + shift.Shift + " shift on " + shift.Day + " was opened!");
     }
     // Update is called once per frame
     void Update () {
